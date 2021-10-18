@@ -38,7 +38,7 @@ async function Main() {
       "Type the task numbem you want to edit: "
     );
     const newItemValue: string = await question(
-      `Type the new value for the item ${itemToEdit}`
+      `Type the new value for the item ${itemToEdit}: `
     );
     todoList[itemToEdit] = newItemValue
 
