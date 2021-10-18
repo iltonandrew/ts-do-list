@@ -4,11 +4,38 @@ enum Commands {
   Exit = 0,
   Add,
   Edit,
-  Delete
+  Delete,
 }
 
 function DisplayList(list: Array<string>) {
+  console.log("Current list:");
   list.map((item, index) => console.log(`${index}. ${item}`));
+}
+
+async function AddToDoItem() {
+  const itemToAdd = await question("Type the task to add: ");
+  todoList.push(itemToAdd);
+  console.log("Current list:");
+  DisplayList(todoList);
+}
+
+async function EditToDoItem() {
+  const itemToEdit: number = await question(
+    "Type the task number you want to edit: "
+  );
+  const newItemValue: string = await question(
+    `Type the new value for the item ${itemToEdit}: `
+  );
+  todoList[itemToEdit] = newItemValue;
+  DisplayList(todoList);
+}
+
+async function DeleteToDoItem() {
+  const itemToRemove: number = await question(
+    "Type the task number you want to remove: "
+  );
+  todoList.splice(itemToRemove, 1);
+  DisplayList(todoList);
 }
 
 const rl = readline.createInterface({
@@ -22,40 +49,23 @@ const question = util.promisify(rl.question).bind(rl);
 const todoList: Array<string> = [];
 
 async function Main() {
-  const option = await question("Choose option:\n1- Add\n2- Edit\n3- Delete\n0- Exit\n");
+  const option = await question(
+    `Choose an option:\n${Commands.Add}- Add\n${Commands.Edit}- Edit\n${Commands.Delete}- Delete\n${Commands.Exit}- Exit`
+  );
   if (option == Commands.Exit) return rl.close();
 
+  DisplayList(todoList);
+
   if (option == Commands.Add) {
-    const itemToAdd = await question("Type the task to add: ");
-    todoList.push(itemToAdd);
-    console.log("Current list:");
-    DisplayList(todoList);
+    await AddToDoItem();
   }
 
   if (option == Commands.Edit) {
-    console.log("Current list:");
-    DisplayList(todoList);
-    const itemToEdit: number = await question(
-      "Type the task number you want to edit: "
-    );
-    const newItemValue: string = await question(
-      `Type the new value for the item ${itemToEdit}: `
-    );
-    todoList[itemToEdit] = newItemValue
-
-    console.log("Current list:");
-    DisplayList(todoList);
+    await EditToDoItem();
   }
 
-  if (option == Commands.Delete){
-    console.log("Current list:");
-    DisplayList(todoList);
-    const itemToRemove: number = await question(
-      "Type the task number you want to remove: "
-    );
-    todoList.splice(itemToRemove, 1)
-    console.log("Current list:");
-    DisplayList(todoList);
+  if (option == Commands.Delete) {
+    await DeleteToDoItem();
   }
 
   Main();
