@@ -1,4 +1,12 @@
 const readline = require("readline");
+const util = require("util");
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+const question = util.promisify(rl.question).bind(rl);
 
 enum Commands {
   Exit = 0,
@@ -37,14 +45,6 @@ async function DeleteToDoItem() {
   todoList.splice(itemToRemove, 1);
   DisplayList(todoList);
 }
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
-const util = require("util");
-const question = util.promisify(rl.question).bind(rl);
 
 const todoList: Array<string> = [];
 
