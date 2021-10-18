@@ -50,7 +50,7 @@ const todoList: Array<string> = [];
 
 async function Main() {
   const option = await question(
-    `Choose an option:\n${Commands.Add}- Add\n${Commands.Edit}- Edit\n${Commands.Delete}- Delete\n${Commands.Exit}- Exit`
+    `Choose an option:\n${Commands.Add}- Add\n${Commands.Edit}- Edit\n${Commands.Delete}- Delete\n${Commands.Exit}- Exit\n`
   );
   if (option == Commands.Exit) return rl.close();
 
