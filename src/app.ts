@@ -20,7 +20,8 @@ function Main() {
     if (answer == Commands.Add) {
       rl.question('Type the task to add: ', (todoItem:string)=>{
         todoList.push(todoItem)
-        console.log(todoList)
+        console.log('Current list:')
+        todoList.map((item, index)=>console.log(`${index}. ${item}`))
         Main();
       })
     }

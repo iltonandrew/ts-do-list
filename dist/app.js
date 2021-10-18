@@ -17,7 +17,8 @@ function Main() {
         if (answer == Commands.Add) {
             rl.question('Type the task to add: ', function (todoItem) {
                 todoList.push(todoItem);
-                console.log(todoList);
+                console.log('Current list:');
+                todoList.map(function (item, index) { return console.log(index + ". " + item); });
                 Main();
             });
         }
