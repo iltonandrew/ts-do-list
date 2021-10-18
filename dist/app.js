@@ -1,13 +1,28 @@
 "use strict";
 var readline = require("readline");
+var Commands;
+(function (Commands) {
+    Commands[Commands["Exit"] = 0] = "Exit";
+    Commands[Commands["Add"] = 1] = "Add";
+})(Commands || (Commands = {}));
 var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
+    input: process.stdin,
+    output: process.stdout,
 });
-while (1) {
-  rl.question("What do you think of Node.js? ", function (answer) {
-    // TODO: Log the answer in a database
-    console.log("Thank you for your valuable feedback: " + answer);
-    rl.close();
-  });
+var todoList = [];
+function Main() {
+    rl.question('Type 1 to add, 0 to exit: ', function (answer) {
+        if (answer == Commands.Exit)
+            return rl.close();
+        if (answer == Commands.Add) {
+            rl.question('Type the task to add: ', function (todoItem) {
+                todoList.push(todoItem);
+                console.log(todoList);
+                Main();
+            });
+        }
+        Main();
+    });
 }
+;
+Main();

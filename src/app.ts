@@ -1,11 +1,31 @@
 const readline = require("readline");
 
+enum Commands {
+  Exit = 0,
+  Add,
+
+}
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-rl.question("Todo-list ", (answer: string) => {
-  console.log(`Item to Add: ${answer}`);
-  rl.close();
-});
+const todoList: Array<string> = []
+
+function Main() {
+  rl.question('Type 1 to add, 0 to exit: ', (answer:Commands) => {
+    if (answer == Commands.Exit) return rl.close();
+
+    if (answer == Commands.Add) {
+      rl.question('Type the task to add: ', (todoItem:string)=>{
+        todoList.push(todoItem)
+        console.log(todoList)
+        Main();
+      })
+    }
+    Main();  
+  });  
+};
+
+Main()
