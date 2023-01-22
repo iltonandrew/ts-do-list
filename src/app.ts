@@ -1,5 +1,5 @@
-const readline = require("readline");
-const util = require("util");
+const readline = require('readline');
+const util = require('util');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -16,23 +16,23 @@ enum Commands {
 }
 
 function DisplayList(list: Array<string>) {
-  console.log("Current list:");
+  console.log('Current list:');
   list.map((item, index) => console.log(`${index}. ${item}`));
 }
 
 async function AddToDoItem() {
-  const itemToAdd = await question("Type the task to add: ");
+  const itemToAdd = await question('Type the task to add: ');
   todoList.push(itemToAdd);
-  console.log("Current list:");
+  console.log('Current list:');
   DisplayList(todoList);
 }
 
 async function EditToDoItem() {
   const itemToEdit: number = await question(
-    "Type the task number you want to edit: "
+    'Type the task number you want to edit: '
   );
   const newItemValue: string = await question(
-    `Type the new value for the item ${itemToEdit}: `
+    `Type the value for this item ${itemToEdit}: `
   );
   todoList[itemToEdit] = newItemValue;
   DisplayList(todoList);
@@ -40,7 +40,7 @@ async function EditToDoItem() {
 
 async function DeleteToDoItem() {
   const itemToRemove: number = await question(
-    "Type the task number you want to remove: "
+    'Type the task number you want to remove: '
   );
   todoList.splice(itemToRemove, 1);
   DisplayList(todoList);
